@@ -1,0 +1,3 @@
+D:/github/programming_basics_project/cmake-build-debug/CMakeFiles/programming_basics_project.dir
+D:/github/programming_basics_project/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/github/programming_basics_project/cmake-build-debug/CMakeFiles/rebuild_cache.dir

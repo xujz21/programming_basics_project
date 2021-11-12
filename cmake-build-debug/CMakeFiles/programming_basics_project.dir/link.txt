@@ -1,0 +1,3 @@
+"C:\Program Files\JetBrains\CLion 2021.2.2\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\programming_basics_project.dir/objects.a
+D:\Program_Files\gcc\mingw32\bin\ar.exe cr CMakeFiles\programming_basics_project.dir/objects.a @CMakeFiles\programming_basics_project.dir\objects1.rsp
+D:\Program_Files\gcc\mingw32\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\programming_basics_project.dir/objects.a -Wl,--no-whole-archive -o programming_basics_project.exe -Wl,--out-implib,libprogramming_basics_project.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\programming_basics_project.dir\linklibs.rsp
