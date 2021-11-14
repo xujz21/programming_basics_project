@@ -86,6 +86,7 @@ inline void Parse()
         str.erase(i,1);
         else break;
     }
+    if(str=="")return;
     std::stringstream ss(str);
     std::vector<std::string> tokens;
     std::string tempstring;
