@@ -4,122 +4,177 @@
 #include <cstring>
 #include <cstdlib>
 #include <vector>
+#include "map"
+#include "cstdio"
 #include "part1.h"
 #include "part2.h"
 #include "part3.h"
 #include "part4.h"
-std::string s;
-struct BashCmd
-{
-    std::string CmdName;
-    void (*fx)(int,char**){};
-}CmdList[1000];
-int cmdcnt=9;
 
+std::string s;
+std::map <std::string,void(*)(int,char**)> cmdlist;
 inline void Addfunction()
 {
-    CmdList[0].CmdName="exit";
-    CmdList[1].CmdName="diff";
-    CmdList[1].fx=doDiff;
-    CmdList[2].CmdName="grep";
-    CmdList[2].fx=doGrep;
-    CmdList[3].CmdName="tee";
-    CmdList[3].fx=doTee;
-    CmdList[4].CmdName="cat";
-    CmdList[4].fx=doCat;
-    CmdList[5].CmdName="cp";
-    CmdList[5].fx=doCp;
-    CmdList[6].CmdName="cd";
-    CmdList[6].fx=doCd;
-    CmdList[7].CmdName="pwd";
-    CmdList[7].fx=doPwd;
-    CmdList[8].CmdName="echo";
-    CmdList[8].fx=doEcho;
+    cmdlist["diff"] = doDiff;
+    cmdlist["grep"] = doGrep;
+    cmdlist["tee" ] = doTee;
+    cmdlist["cat" ] = doCat;
+    cmdlist["cp"  ] = doCp;
+    cmdlist["cd"  ] = doCd;
+    cmdlist["pwd" ] = doPwd;
+    cmdlist["echo"] = doEcho;
+    cmdlist["exit"] = doExit;
 }
 inline void not_impl(std::string &token)
 {
     std::cerr<<"Command '"<<token<<"' not found"<<std::endl;
 }
-inline void Analyze(std::vector<std::string> tokens)
+
+std::vector<std::string> vec_argv;
+std::vector<std::vector<std::string> > vec_pipeline;
+std::vector<std::vector<std::vector<std::string> > > commands;
+std::string str;
+char c;
+inline void clear_all()
 {
-    char **args;
-    int n=(int)tokens.size()-1;
-    args=(char**)malloc(n*sizeof(char*));
-    for(int i=0;i<n;i++)
-    {
-        args[i]=(char*)malloc((tokens[i+1].size()+1)*sizeof(char));
-        strcpy(args[i],tokens[i+1].c_str());
-    }
-    bool called=false;
-    for(int i=0;i<cmdcnt;i++)
-    {
-        if(tokens[0]==CmdList[i].CmdName)
-        {
-            if(tokens[0]=="echo")
-            {
-                CmdList[i].fx(n, args);
-            }
-            if(tokens[0]!="echo")
-            {
-                memset(gTerm.strout,'\0',sizeof(gTerm.strout));
-            }
-            called=true;
-            break;
-        }
-    }
-    //for(int i=0;i<n;i++)
-      //  free(args[i]);
-    //free(args);
-    if(!called)
-    {
-        not_impl(tokens[0]);
-    }
+    vec_argv.clear();
+    vec_pipeline.clear();
+    commands.clear();
+    str.clear();
+    c=0;
 }
-inline void Parse()
+inline void push_word()
 {
-    std::string str;
-    std::getline(std::cin,str);
-    int nn=(int)str.size();
-    for(int i=nn-1;i>=0;i--)
+    if(str.size()>0)
+        vec_argv.push_back(str);
+    str="";
+}
+inline void push_pipeline()
+{
+    push_word();
+    if(!vec_argv.empty())
+        vec_pipeline.push_back(vec_argv);
+    vec_argv.clear();
+}
+inline void push_command()
+{
+    push_pipeline();
+    if(!vec_pipeline.empty())
+        commands.push_back(vec_pipeline);
+    vec_pipeline.clear();
+}
+inline void tokenize()
+{
+    while(c=getchar())
     {
-        if(str[i]==' ')
-        str.erase(i,1);
-        else break;
-    }
-    if(str=="")return;
-    std::stringstream ss(str);
-    std::vector<std::string> tokens;
-    std::string tempstring;
-    bool cmplx=false;
-    while(!ss.eof())
-    {
-        ss>>tempstring;
-        if(tempstring!="|")
+        if(c=='\n')
         {
-            tokens.push_back(tempstring);         
+            if(vec_argv.empty()&&!vec_pipeline.empty())
+            {
+                std::cout<<"> ";
+                continue;
+            }
+            else break;
+        }
+        else if(c=='\'')
+        {
+            while(true)
+            {
+                c=getchar();
+                if(c=='\'')break;
+                if(c=='\n')std::cout<<"> ";
+                str+=c;
+            }
+        }
+        else if(c=='\"')
+        {
+            while(true)
+            {
+                c=getchar();
+                if(c=='\"')break;
+                if(c=='\\')
+                {
+                    c=getchar();
+                    if(!(c=='\n'||c=='\"'||c=='`'||c=='$'))
+                    {
+                        str+='\\';
+                    }
+                }
+
+                if(c=='\n')std::cout<<"> ";
+                str+=c;
+            }
+        }
+        else if(c=='\\')
+        {
+            c=getchar();
+            str+=c;
+        }
+        else if(c=='\t'||c==' ')
+        {
+            push_word();
+        }
+        else if(c==';')
+        {
+            push_command();
+        }
+        else if(c=='|')
+        {
+            push_pipeline();
         }
         else
         {
-            Analyze(tokens);
-            tokens.clear();
-            memset(gTerm.strin,0,sizeof gTerm.strin);
-            strcpy(gTerm.strin,gTerm.strout);
-            cmplx=true;
+            str+=c;
         }
     }
-    if(!cmplx&&tokens.size()==1&&tokens[0]=="exit")
-    {
-        exit(0);
-    }
-    Analyze(tokens);
-    tokens.clear();
-    std::cout<<gTerm.strout;
-    memset(gTerm.strout,'\0',sizeof(gTerm.strout));
+    push_command();
 }
-
-int main(int argc,char **argv)
+void parse(int pipe_idx,int arglist_idx)
 {
-    Addfunction();
+    char **args;
+    int n=(int)commands[pipe_idx][arglist_idx].size();
+    args=(char**)malloc(n*sizeof(char*));
+    for(int i=0;i<n;i++)
+    {
+        args[i]=(char*)malloc((commands[pipe_idx][arglist_idx][i].size()+1)*sizeof(char));
+        strcpy(args[i],commands[pipe_idx][arglist_idx][i].c_str());
+    }
+    auto _tmpcmd=cmdlist.find(commands[pipe_idx][arglist_idx][0]);
+    if(_tmpcmd!=cmdlist.end())
+    {
+        _tmpcmd->second(n, args);
+    }
+    else
+    {
+        not_impl(commands[pipe_idx][arglist_idx][0]);
+    }
+    for(int i=0;i<n;i++)
+      free(args[i]);
+    free(args);
+}
+inline void handle_pipeline(int pipe_idx)
+{
+    int w=(int)commands[pipe_idx].size();
+    if(w!=1)gTerm.multistages=true;
+    for(int i=0;i<w;i++)
+    {
+        memset(gTerm.strout,0,sizeof(gTerm.strout));
+        parse(pipe_idx,i);
+        strcpy(gTerm.strin,gTerm.strout);
+    }
+    gTerm.multistages=false;
+    std::cout<<gTerm.strout;
+}
+inline void evaluate()
+{
+    tokenize();
+    int w=(int)commands.size();
+    for(int i=0;i<w;i++)
+        handle_pipeline(i);
+    clear_all();
+}
+inline void Initialize()
+{
     std::cout<<"Machine Name: ";
     std::cin>>gTerm.mach;
     std::cout<<"Root Directory: ";
@@ -127,11 +182,17 @@ int main(int argc,char **argv)
     std::cout<<"Login: ";
     std::cin>>gTerm.user;
     std::getline(std::cin,s);
+}
+int main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv)
+{
+    Addfunction();
+    Initialize();
     while(true)
     {
         std::cout<<"\e[92;1m"<<gTerm.user<<"@"<<gTerm.mach<<"\e[0m:\e[94;1m"<<gTerm.wdir<<"$ \e[0m";
-        Parse();
+        evaluate();
     }
     return 0;
+
 }
 

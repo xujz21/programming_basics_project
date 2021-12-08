@@ -9,5 +9,6 @@ struct Terminal
     char wdir[MAXLINE]="/";
     char strin[MAXFILE];
     char strout[MAXFILE];
+    bool multistages=false;
 };
 Terminal gTerm;

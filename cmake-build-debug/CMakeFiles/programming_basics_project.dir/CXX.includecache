@@ -21,6 +21,10 @@ cstdlib
 -
 vector
 -
+map
+D:/github/programming_basics_project/map
+cstdio
+D:/github/programming_basics_project/cstdio
 part1.h
 D:/github/programming_basics_project/part1.h
 part2.h
