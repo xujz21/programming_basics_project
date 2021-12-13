@@ -1,0 +1,23 @@
+Tiny
+C:/Users
+Admin
+echo tinyshell "for   linux"
+echo 'single
+ quoted statement'
+echo \n backslash escaped
+echo hello world
+echo -n hello world|echo c++
+echo "tiny shell  \
+version 1.0
+2021.11.09"
+echo --help|tee echo_help.txt
+cd
+echo a; echo b
+echo hello|
+echo c++
+pwd
+eco
+diff
+cat
+exit|exit
+exit;exit
