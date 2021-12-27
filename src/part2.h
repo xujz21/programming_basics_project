@@ -77,7 +77,7 @@ char grepHelpStr[]="  Usage: grep [OPTION]... PATTERNS [FILE]...\
 \n  With fewer than two FILEs, assume -h.\
 \n  \
 \n  Report bugs to: nzk20@mails.tsinghua.edu.cn\n\n";
-
+void do_Grep_Reset();
 char s[200];
 void itos(int x){
     int t=0;
@@ -99,19 +99,6 @@ bool enhanceEqual(char a, char b, bool ignore){
         || ((b-'a'+'A')==a && b>='a' && b<='z' && a>='A' && a<='Z')) return true;
     return false;
 }
-
-inline void cinStrout(char* src){
-    strcat(gTerm.strout, src);
-}
-inline void cinStrout(const char* src){
-    strcat(gTerm.strout, src);
-}
-inline void cinStrout(char c){
-    int len = strlen(gTerm.strout);
-    gTerm.strout[len] = c;
-    gTerm.strout[len+1] = '\0';
-}
-
 
 int match(char* re, char* a, bool ignore){ // 从a开头开始匹配
     int s = strlen(re);
@@ -157,7 +144,6 @@ void Analyse(GrepArgs args){ // 根据接收到的各种参数分析文件内容
     }
     if(!args.setH && file_cnt>1)
         args.showFileName = true;
- 
     // 开始分析!
     for(int f=0 ; f<file_cnt ; f++){ // 对每个文件（第f个文件）
         int* matchLineArr = new int[file[f].line_cnt];
@@ -195,7 +181,10 @@ void Analyse(GrepArgs args){ // 根据接收到的各种参数分析文件内容
 
         if(args.showLineCnt){ // 只输出匹配行数
             if(args.showFileName){ // 是否输出文件名
-                cinStrout(green); cinStrout(file[f].filename); cinStrout(blue); cinStrout(':'); cinStrout(white);
+                cinStrout(green); cinStrout(file[f].filename); 
+                cinStrout(blue); 
+                cinStrout(':'); 
+                cinStrout(white);
             }
             itos(linecnt);
             cinStrout(s);
@@ -229,11 +218,14 @@ void Analyse(GrepArgs args){ // 根据接收到的各种参数分析文件内容
                     cinStrout('\n');
                 }
                 else{ // 有效匹配：白-红-白
-                    for(int c=0 ; c<file[f].tag[i].Seg.start_id ; c++) cinStrout(file[f].line[i][c]);
+                    for(int c=0 ; c<file[f].tag[i].Seg.start_id ; c++) 
+                        cinStrout(file[f].line[i][c]);
                     cinStrout(red);
-                    for(int c=file[f].tag[i].Seg.start_id ; c<=file[f].tag[i].Seg.end_id ; c++) cinStrout(file[f].line[i][c]);
+                    for(int c=file[f].tag[i].Seg.start_id ; c<=file[f].tag[i].Seg.end_id ; c++) 
+                        cinStrout(file[f].line[i][c]);
                     cinStrout(white);
-                    for(int c=file[f].tag[i].Seg.end_id+1 ; c<leni ; c++) cinStrout(file[f].line[i][c]);
+                    for(int c=file[f].tag[i].Seg.end_id+1 ; c<leni ; c++) 
+                        cinStrout(file[f].line[i][c]);
                     cinStrout('\n');
                 }
             }
@@ -271,10 +263,14 @@ void doGrep(int argc, char* argv[]){
                 // *** 2.如何判断该文件存在: 使用读取文件流fstream是否为空来判断 
                 // *** 3.如何判断命令行末尾参数有多文件的情况：循环读入，每次读入新的文件
                 //（可设置文件最大读取数量为 MAX_FILE_NUM, 单个文件最多字符数 MAX_CHAR_NUM）
+                memset(file[file_cnt].filepath,0,sizeof (file[file_cnt].filepath));
                 strcat(file[file_cnt].filepath, gTerm.root);
+                //strcat(file[file_cnt].filepath, "/");
                 strcat(file[file_cnt].filepath, gTerm.wdir);
+                strcat(file[file_cnt].filepath, "/");
                 strcat(file[file_cnt].filepath, argv[i]);
-                fin.open(argv[i]); // 读入文件
+                //fin.open(argv[i]); // 读入文件
+                fin.open(file[file_cnt].filepath);
                 if(fin){ // 文件存在
                     while(!fin.eof()){
                         string tmp;
@@ -339,4 +335,10 @@ void doGrep(int argc, char* argv[]){
         }
     }
     Analyse(args); // 传好了一堆参数
+    do_Grep_Reset();
+}
+void do_Grep_Reset()
+{
+    memset(file,0,sizeof(file));
+    file_cnt=0;
 }

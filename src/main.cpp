@@ -10,7 +10,7 @@
 #include "part3.h"
 #include "part4.h"
 char c;
-std::string str,s;
+std::string str,tmp_str;
 std::vector<std::string> vec_argv;
 std::vector<std::vector<std::string> > vec_pipeline;
 std::vector<std::vector<std::vector<std::string> > > commands;
@@ -108,14 +108,14 @@ inline void Initialize()
 {
     gTerm.wdir[0]='/';
     std::cout<<"Machine Name: ";
-    std::getline(std::cin,s);
-    strcpy(gTerm.mach,s.c_str());
+    std::getline(std::cin,tmp_str);
+    strcpy(gTerm.mach,tmp_str.c_str());
     std::cout<<"Root Directory: ";
-    std::getline(std::cin,s);
-    strcpy(gTerm.root,s.c_str());
+    std::getline(std::cin,tmp_str);
+    strcpy(gTerm.root,tmp_str.c_str());
     std::cout<<"Login: ";
-    std::getline(std::cin,s);
-    strcpy(gTerm.user,s.c_str());
+    std::getline(std::cin,tmp_str);
+    strcpy(gTerm.user,tmp_str.c_str());
 }
 inline void not_impl(std::string &token)
 {
@@ -243,6 +243,8 @@ inline int tokenize()
                 sytxerr(c);
                 return 0;
             }
+            handle_pipeline(0);
+            clear_all();
         }
         else if(c=='|')
         {

@@ -2,13 +2,26 @@
 #include <cstdlib>
 #include <cstring>
 #include "global_var.h"
+const char Echo_docs[]="Usage: echo [SHORT-OPTION]... [STRING]...\
+\n  or:  echo LONG-OPTION\
+\n Echo the STRING(s) to standard output.\
+\n\
+\n  -n             do not output the trailing newline\
+\n      --help     display this help and exit\
+\n";    
 
+const char Exit_docs[]="exit: exit [n]\
+\n    Exit the shell.\
+\n\
+\n    Exits the shell with a status of N.  If N is omitted, the exit status\
+\n    is that of the last command executed.";
 void doEcho(int argc, char **argv)
 {
     std::string _output;
     if((argc==2)&&(strcmp(argv[1],"--help")==0))
     {
-        _output="Usage: echo [SHORT-OPTION]... [STRING]...\n  or:  echo LONG-OPTION\nEcho the STRING(s) to standard output.\n\n  -n             do not output the trailing newline\n      --help     display this help and exit\n";    }
+        _output=Echo_docs;
+    }
     else if(argc>=2)
     {
         int i=1;
@@ -43,7 +56,7 @@ void doExit(int argc, char **argv)
 {
     if(argc >= 2 && strcmp(argv[1],"--help")==0)
     {
-        strcpy(gTerm.strout,"exit: exit [n]\n    Exit the shell.\n\n    Exits the shell with a status of N.  If N is omitted, the exit status\n    is that of the last command executed.");
+        strcpy(gTerm.strout,Exit_docs);
         return;
     }
     if(!gTerm.multistages)

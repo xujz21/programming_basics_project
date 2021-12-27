@@ -1,22 +1,22 @@
 #include "global_var.h"
-
+using namespace std;
 char rta[200],rtb[200];
-char wda[200],wdb[200];//存储连接后文件路径 
+char wda[200],wdb[200];//锟芥储锟斤拷锟接猴拷锟侥硷拷路锟斤拷 
 
-struct like{//存储相同的行 
+struct like{//锟芥储锟斤拷同锟斤拷锟斤拷 
 	int sa_a;
 	int sa_b;
 };
 like same[300];
 int sai=1;
 
-int s_g[6]={0,0,0,0,0,0};//数组存储6个功能
+int s_g[6]={0,0,0,0,0,0};//锟斤拷锟斤拷娲?6锟斤拷锟斤拷锟斤拷
 
-string a[300],b[300];//用两个字符串数组存储比较内容
+string a[300],b[300];//锟斤拷锟斤拷锟斤拷锟街凤拷锟斤拷锟斤拷锟斤拷娲拷冉锟斤拷锟斤拷锟?
 
-int I=0;//存出I所在的argv 
+int I=0;//锟斤拷锟絀锟斤拷锟节碉拷argv 
 
-void sc()//将输出文件放入strout 
+void sc()//锟斤拷锟斤拷锟斤拷募锟斤拷锟斤拷锟絪trout 
 {
 	ifstream fout("answer.txt");
 	string ls;
@@ -26,7 +26,7 @@ void sc()//将输出文件放入strout
 	strcpy(gTerm.strout,ls.c_str());
 }
 
-void judge(int hang,int hx_b)//进行行之间相同的判断 
+void judge(int hang,int hx_b)//锟斤拷锟斤拷锟斤拷之锟斤拷锟斤拷同锟斤拷锟叫讹拷 
 {
 	for(int i=1;i<=hx_b;i++)
 	{
@@ -38,16 +38,16 @@ void judge(int hang,int hx_b)//进行行之间相同的判断
 				sai++;
 				return;
 			}
-		}//基础判断 
+		}//锟斤拷锟斤拷锟叫讹拷 
 		else
 		{
 		char as[100],bs[100];	
 		strcpy(as,a[hang].c_str());
-		strcpy(bs,b[i].c_str());//用两个字符数组存储比较字符串内容
+		strcpy(bs,b[i].c_str());//锟斤拷锟斤拷锟斤拷锟街凤拷锟斤拷锟斤拷娲拷冉锟斤拷址锟斤拷锟斤拷锟斤拷锟?
 		int alen=strlen(a[hang].c_str());
 		int blen=strlen(b[i].c_str()); 
 		
-		if(s_g[0]==1)//判断是否 不检查空格字符的不同
+		if(s_g[0]==1)//锟叫讹拷锟角凤拷 锟斤拷锟斤拷锟秸革拷锟街凤拷锟侥诧拷同
 		{
 			int iba=0,ibb=0;
 			for(iba;iba<=alen-1;iba++){
@@ -70,7 +70,7 @@ void judge(int hang,int hx_b)//进行行之间相同的判断
 					}
 				
 			}
-		}//将两个字符数组中的连在一起的空格变成一个 
+		}//锟斤拷锟斤拷锟斤拷锟街凤拷锟斤拷锟斤拷锟叫碉拷锟斤拷锟斤拷一锟斤拷目崭锟斤拷锟揭伙拷锟? 
 		if(s_g[4]==1)
 		{
 			int iwa=0,iwb=0;
@@ -99,8 +99,8 @@ void judge(int hang,int hx_b)//进行行之间相同的判断
 				}
 			}
 			
-		}//去掉全部的空格字符 
-		if(alen!=blen)continue;//判断长度是否相同 
+		}//去锟斤拷全锟斤拷锟侥空革拷锟街凤拷 
+		if(alen!=blen)continue;//锟叫断筹拷锟斤拷锟角凤拷锟斤拷同 
 		if(s_g[2]==1)
 		{
 			for(int ils=0;ils<=alen-1;ils++)
@@ -114,7 +114,7 @@ void judge(int hang,int hx_b)//进行行之间相同的判断
 				bs[ils]=bs[ils]+' ';
 			}
 			
-		}//将所有的大写转成小写 
+		}//锟斤拷锟斤拷锟叫的达拷写转锟斤拷小写 
 		
 		if(!(strcmp(as,bs))) 
 		{
@@ -122,7 +122,7 @@ void judge(int hang,int hx_b)//进行行之间相同的判断
 			same[sai].sa_b=i;
 		    sai++;
 			return;	
-		}//进行判断是否相等 
+		}//锟斤拷锟斤拷锟叫讹拷锟角凤拷锟斤拷锟? 
 		}
 	}
 }
@@ -130,14 +130,14 @@ void judge(int hang,int hx_b)//进行行之间相同的判断
 void change(int tg,ofstream &fcg,int ia)
 {
 	
-	if(s_g[1]==0)//判断是否忽略空白行
+	if(s_g[1]==0)//锟叫讹拷锟角凤拷锟斤拷钥瞻锟斤拷锟?
 	{ 
 		if((same[tg+ia].sa_a-same[tg].sa_a==1)&&(same[tg+ia].sa_b-same[tg].sa_b==1))
-		//相邻的两行相等 
-		{}//无事发生
+		//锟斤拷锟节碉拷锟斤拷锟斤拷锟斤拷锟? 
+		{}//锟斤拷锟铰凤拷锟斤拷
 		else
 		if((same[tg+ia].sa_a-same[tg].sa_a==1)&&(same[tg+ia].sa_b-same[tg].sa_b>1))
-		//进行添加
+		//锟斤拷锟斤拷锟斤拷锟?
 		{
 			fcg<<same[tg].sa_a<<"a"<<same[tg].sa_b+1<<endl;
 			int ils=same[tg].sa_b+1;
@@ -148,7 +148,7 @@ void change(int tg,ofstream &fcg,int ia)
 		}
 		else
 		if((same[tg+ia].sa_a-same[tg].sa_a>1)&&(same[tg+ia].sa_b-same[tg].sa_b==1))
-		//进行删减
+		//锟斤拷锟斤拷删锟斤拷
 		{
 			fcg<<same[tg].sa_a+1<<"d"<<same[tg].sa_b<<endl;
 			int ils=same[tg].sa_a+1;
@@ -158,7 +158,7 @@ void change(int tg,ofstream &fcg,int ia)
 			}
 		}
 		else
-		//进行更换 
+		//锟斤拷锟叫革拷锟斤拷 
 		{
 			fcg<<same[tg].sa_a+1<<"c"<<same[tg].sa_b+1<<endl;
 			int ilsa=same[tg].sa_a+1;
@@ -174,10 +174,10 @@ void change(int tg,ofstream &fcg,int ia)
 			}
 		}
 	}
-	else//忽略空白行 
+	else//锟斤拷锟皆空帮拷锟斤拷 
 	{
 		bool *xa=new bool[same[tg+ia].sa_a-same[tg].sa_a-1];
-		bool *xb=new bool[same[tg+ia].sa_b-same[tg].sa_b-1];//记录行是否空白
+		bool *xb=new bool[same[tg+ia].sa_b-same[tg].sa_b-1];//锟斤拷录锟斤拷锟角凤拷瞻锟?
 		for(int ils=0;ils<=same[tg+ia].sa_a-same[tg].sa_a-2;ils++)
 		{
 			if(a[same[tg].sa_a+ils+1]=="\0")xa[ils]=1;
@@ -201,14 +201,14 @@ void change(int tg,ofstream &fcg,int ia)
 			}
 		
 		if((same[tg+ia].sa_a-same[tg].sa_a==1)&&(same[tg+ia].sa_b-same[tg].sa_b==1))
-		//相邻的两行相等 
-		{}//无事发生
+		//锟斤拷锟节碉拷锟斤拷锟斤拷锟斤拷锟? 
+		{}//锟斤拷锟铰凤拷锟斤拷
 		else
 		{
 		if(((same[tg+ia].sa_a-same[tg].sa_a==1)&&(same[tg+ia].sa_b-same[tg].sa_b>1))||xlsa==0)
-		//进行添加
+		//锟斤拷锟斤拷锟斤拷锟?
 		{
-			if(xlsb==1)//不是全零行 
+			if(xlsb==1)//锟斤拷锟斤拷全锟斤拷锟斤拷 
 			{ 
 			fcg<<same[tg].sa_a<<"a"<<same[tg].sa_b+1<<endl;
 			int ils=same[tg].sa_b+1;
@@ -223,7 +223,7 @@ void change(int tg,ofstream &fcg,int ia)
 		}
 		else
 		if(((same[tg+ia].sa_a-same[tg].sa_a>1)&&(same[tg+ia].sa_b-same[tg].sa_b==1))||xlsb==0)
-		//进行删减
+		//锟斤拷锟斤拷删锟斤拷
 		{
 			if(xlsa==1)
 			{ 
@@ -239,7 +239,7 @@ void change(int tg,ofstream &fcg,int ia)
 			} 
 		}
 		else
-		//进行更换  
+		//锟斤拷锟叫革拷锟斤拷  
 		{
 			fcg<<same[tg].sa_a+1<<"c"<<same[tg].sa_b+1<<endl;
 			int ilsa=same[tg].sa_a;
@@ -277,14 +277,21 @@ void doDiff(int argc, char **argv)
 	strcpy(rtb,gTerm.root);
 	strcpy(wda,gTerm.root);
 	strcpy(wdb,gTerm.root);
-	strcat(strcat(rta,"\\"),argv[argc-2]);
-	strcat(strcat(rtb,"\\"),argv[argc-1]);
-	strcat(strcat(strcat(strcat(wda,"\\"),gTerm.wdir),"\\"),argv[argc-2]);
-	strcat(strcat(strcat(strcat(wdb,"\\"),gTerm.wdir),"\\"),argv[argc-1]);
-	
+	//strcat(strcat(rta,"\\"),argv[argc-2]);
+    strcat(strcat(rta,"/"),argv[argc-2]);
+	//strcat(strcat(rtb,"\\"),argv[argc-1]);
+    strcat(strcat(rta,"/"),argv[argc-1]);
+	//strcat(strcat(strcat(strcat(wda,"\\"),gTerm.wdir),"\\"),argv[argc-2]);
+    strcat(strcat(wda,gTerm.wdir),argv[argc-2]);
+    strcat(strcat(wdb,gTerm.wdir),argv[argc-1]);
+    cout<<wda<<endl;
+    cout<<wdb<<endl;
+    //strcat(strcat(strcat(strcat(wda,"/"),gTerm.wdir),"/"),argv[argc-2]);
+	//strcat(strcat(strcat(strcat(wdb,"\\"),gTerm.wdir),"\\"),argv[argc-1]);
+    //strcat(strcat(strcat(strcat(wda,"/"),gTerm.wdir),"/"),argv[argc-1]);
 	char help1[]="--help";
 	char *help2=argv[1];
-	bool zs0=1;//检查--help是否拼写正确 
+	bool zs0=1;//锟斤拷锟?--help锟角凤拷拼写锟斤拷确 
 	if(argc==2)
 	{
 		if(strcmp(help2,help1)){
@@ -293,7 +300,7 @@ void doDiff(int argc, char **argv)
 		}
 	}
 	
-	bool zs1=1;//判断功能是否可执行 
+	bool zs1=1;//锟叫断癸拷锟斤拷锟角凤拷锟街达拷锟? 
 	for(int i=1;i<=argc-3;i++)
 	{
 		char *pd=argv[i];
@@ -312,7 +319,7 @@ void doDiff(int argc, char **argv)
 		}
 	}
 	
-	bool zs2=1;//判断文件是否存在
+	bool zs2=1;//锟叫讹拷锟侥硷拷锟角凤拷锟斤拷锟?
 	if(argc!=2)
 	{
 		ifstream fina;
@@ -343,7 +350,7 @@ void doDiff(int argc, char **argv)
 		fout1.close();
 		sc();
 	return;
-	}//将help指令输出到文件中;退出进程 
+	}//锟斤拷help指锟斤拷锟斤拷锟斤拷锟斤拷募锟斤拷锟?;锟剿筹拷锟斤拷锟斤拷 
 	
 	for(int i=1;i<=argc-3;i++){
 		if(!strcmp(argv[i],"-b"))s_g[0]=1;
@@ -355,12 +362,12 @@ void doDiff(int argc, char **argv)
 		{s_g[5]=1;
 		I=i;
 		}
-	}//对输入的功能进行检测
+	}//锟斤拷锟斤拷锟斤拷墓锟斤拷芙锟斤拷屑锟斤拷
 	
-	int hx_a=1;int hx_b=1;//存储文件的行数 
-	if((strcmp(argv[argc-2],"-"))&&(strcmp(argv[argc-1],"-")))//判断是否从strin中读取 
+	int hx_a=1;int hx_b=1;//锟芥储锟侥硷拷锟斤拷锟斤拷锟斤拷 
+	if((strcmp(argv[argc-2],"-"))&&(strcmp(argv[argc-1],"-")))//锟叫讹拷锟角凤拷锟絪trin锟叫讹拷取 
 	{
-	if(gTerm.root[0]=='\\')
+	if(gTerm.root[0]=='/')
 	{
 		ifstream fin1;
 		fin1.open(rta);
@@ -405,10 +412,10 @@ void doDiff(int argc, char **argv)
 		fin2.close();
 	}
 	
-	}//完成从文件中的读取 
+	}//锟斤拷纱锟斤拷募锟斤拷械亩锟饺? 
 	else 
 	{
-		if(!(strcmp(argv[argc-2],"-"))&&strcmp(argv[argc-1],"-")) //判断那个读取strin
+		if(!(strcmp(argv[argc-2],"-"))&&strcmp(argv[argc-1],"-")) //锟叫讹拷锟角革拷锟斤拷取strin
 		{                             
 		int i=0;
 		while(!(gTerm.strin[i]=='\0'))
@@ -475,12 +482,12 @@ void doDiff(int argc, char **argv)
 			j++; 
 			}
 		}
-	}//完成从strin中的读取（这里默认只有一个strin) 
-	//前期工作完成，正式进入diff 
+	}//锟斤拷纱锟絪trin锟叫的讹拷取锟斤拷锟斤拷锟斤拷默锟斤拷只锟斤拷一锟斤拷strin) 
+	//前锟节癸拷锟斤拷锟斤拷桑锟斤拷锟绞斤拷锟斤拷锟絛iff 
 	if(a[1]=="\0"&&hx_a==1)hx_a--;
-	if(b[1]=="\0"&&hx_b==1)hx_b--;//补丁：只在文件为空时减少行数 
+	if(b[1]=="\0"&&hx_b==1)hx_b--;//锟斤拷锟斤拷锟斤拷只锟斤拷锟侥硷拷为锟斤拷时锟斤拷锟斤拷锟斤拷锟斤拷 
 	
-	if(s_g[5]==1)//完成I的功能（有歧义) 
+	if(s_g[5]==1)//锟斤拷锟絀锟侥癸拷锟杰ｏ拷锟斤拷锟斤拷锟斤拷) 
 	{
 		char *Ibj=argv[I];
 		char is[100];
@@ -519,12 +526,12 @@ void doDiff(int argc, char **argv)
 	for(int hang=1;hang<=hx_a;hang++)
 	{
 		judge(hang,hx_b);
-	}//进行行相同的判断
+	}//锟斤拷锟斤拷锟斤拷锟斤拷同锟斤拷锟叫讹拷
 	 
 	same[0].sa_a=0;
 	same[0].sa_b=0;
 	same[sai].sa_a=hx_a+1;
-	same[sai].sa_b=hx_b+1;//将两文件的首尾视作相同
+	same[sai].sa_b=hx_b+1;//锟斤拷锟斤拷锟侥硷拷锟斤拷锟斤拷尾锟斤拷锟斤拷锟斤拷同
 	
 	if(s_g[3]==1)
 	{
@@ -546,15 +553,15 @@ void doDiff(int argc, char **argv)
 		sc();
 		return;
 		}
-	}//完成q的功能
+	}//锟斤拷锟絨锟侥癸拷锟斤拷
 	
 	ofstream fcg("answer.txt");
-	for(int tg=0;tg<=sai-1;tg++)//进行调整 
+	for(int tg=0;tg<=sai-1;tg++)//锟斤拷锟叫碉拷锟斤拷 
 	{
 		int ia=1;
 		while(same[tg].sa_b-same[tg+ia].sa_b>0){
 			ia++;
-		}//判断是否交叉 
+		}//锟叫讹拷锟角否交诧拷 
 		change(tg,fcg,ia);
 		tg+=ia-1;
 	}
