@@ -19,11 +19,12 @@ int I=0;//���I���ڵ�argv
 void sc()//������ļ�����strout 
 {
 	ifstream fout("answer.txt");
-	string ls;
+	string ls,_tmp;
 	while(!fout.eof()){
-	getline(fout,ls);
+		getline(fout,ls);
+		_tmp+=ls+"\n";
 	}
-	strcpy(gTerm.strout,ls.c_str());
+	strcpy(gTerm.strout,_tmp.c_str());
 }
 
 void judge(int hang,int hx_b)//������֮����ͬ���ж� 

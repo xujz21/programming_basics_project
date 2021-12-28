@@ -948,7 +948,8 @@ void doTee(int argc,char * argv[])
 				{
 					//处理文件名
 					string fin; 
-					if(str[i]=="-") strcpy(gTerm.strout,gTerm.strin);
+					if(str[i]=="-") 
+						strcpy(gTerm.strout,gTerm.strin);
 					else
 					{
 						if(str[i][0]=='/')
@@ -969,7 +970,7 @@ void doTee(int argc,char * argv[])
 								if(Wdir=="/") fin=Root+"/"+str[i];
 								if(Wdir!="/") fin=Root+Wdir+"/"+str[i];
 							}
-						                       }
+						}
 						ofstream file(fin.c_str(),ios::app);
 						if(!file)
 						{
@@ -1055,7 +1056,8 @@ void doCd(int argc, char * argv[])
 		int H=0;int hhh=0;
 		while(!A.eof())
 		{
-			getline(A,help[H]);H++;}
+			getline(A,help[H]);H++;
+		}
 		A.close();	
 		for(int q =0;q<H;q++)
 		{
