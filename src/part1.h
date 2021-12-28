@@ -346,7 +346,12 @@ void doDiff(int argc, char **argv)
 	
 	if(!(strcmp(help2,help1))){
 		ofstream fout1("answer.txt");
-		fout1<<"-b, --ignore-space-change,--ignore changes in the amount of white space""-B, --ignore-blank-line, --ignore changes where lines are all blank""-i, --ignore-case, --ignore case differences in file contents""-q, --brief--report only when files differ""-w, --ignore-all-space,--ignore all white space""-I, --ignore-matching-lines=RE,--ignore changes where all lines match RE";
+		fout1<<"-b, --ignore-space-change,--ignore changes in the amount of white space"<<endl;
+		fout1<<"-B, --ignore-blank-line, --ignore changes where lines are all blank"<<endl;
+		fout1<<"-i, --ignore-case, --ignore case differences in file contents"<<endl;
+		fout1<<"-q, --brief--report only when files differ"<<endl;
+		fout1<<"-w, --ignore-all-space,--ignore all white space"<<endl;
+		fout1<<"-I, --ignore-matching-lines=RE,--ignore changes where all lines match RE"<<std::endl;
 		fout1.close();
 		sc();
 	return;
@@ -417,37 +422,36 @@ void doDiff(int argc, char **argv)
 	{
 		if(!(strcmp(argv[argc-2],"-"))&&strcmp(argv[argc-1],"-")) //�ж��Ǹ���ȡstrin
 		{                             
-		int i=0;
-		while(!(gTerm.strin[i]=='\0'))
-		{
-			ofstream fout_strina1("-a.txt");
-			while(gTerm.strin[i]!='\n'){
-				fout_strina1<<gTerm.strin[i];
-				i++;
+			int i=0;
+			while(!(gTerm.strin[i]=='\0'))
+			{
+				ofstream fout_strina1("-a.txt");
+				while(gTerm.strin[i]!='\n'){
+					fout_strina1<<gTerm.strin[i];
+					i++;
+				}
+				fout_strina1.close();
+				ifstream fin_strina2("-a.txt");
+				getline(fin_strina2,a[hx_a]);
+				hx_a++;
+				i++; 
 			}
-			fout_strina1.close();
-			ifstream fin_strina2("-a.txt");
-			getline(fin_strina2,a[hx_a]);
-			hx_a++;
-			i++; 
 		}
-		}
-		else
-		if(!(strcmp(argv[argc-1],"-"))&&strcmp(argv[argc-2],"-"))
+		else if(!(strcmp(argv[argc-1],"-"))&&strcmp(argv[argc-2],"-"))
 		{
 			int i=0;
 			while(!(gTerm.strin[i]=='\0'))
 			{
-			ofstream fout_strinb1("-b.txt");
-			while(gTerm.strin[i]!='\n'){
-				fout_strinb1<<gTerm.strin[i];
-				i++;
-			}
-			fout_strinb1.close();
-			ifstream fin_strinb2("-b.txt");
-			getline(fin_strinb2,b[hx_b]);
-			hx_b++;
-			i++; 
+				ofstream fout_strinb1("-b.txt");
+				while(gTerm.strin[i]!='\n'){
+					fout_strinb1<<gTerm.strin[i];
+					i++;
+				}
+				fout_strinb1.close();
+				ifstream fin_strinb2("-b.txt");
+				getline(fin_strinb2,b[hx_b]);
+				hx_b++;
+				i++; 
 			}
 		}
 		else
@@ -455,16 +459,16 @@ void doDiff(int argc, char **argv)
 			int i=0;
 			while(!(gTerm.strin[i]=='\0'))
 			{
-			ofstream fout_strina1("-a.txt");
-			while(gTerm.strin[i]!='\n'){
-				fout_strina1<<gTerm.strin[i];
-				i++;
-			}
-			fout_strina1.close();
-			ifstream fin_strina2("-a.txt");
-			getline(fin_strina2,a[hx_a]);
-			hx_a++;
-			i++; 
+				ofstream fout_strina1("-a.txt");
+				while(gTerm.strin[i]!='\n'){
+					fout_strina1<<gTerm.strin[i];
+					i++;
+				}
+				fout_strina1.close();
+				ifstream fin_strina2("-a.txt");
+				getline(fin_strina2,a[hx_a]);
+				hx_a++;
+				i++; 
 			}
 			
 			int j=i+1;

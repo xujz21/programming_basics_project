@@ -297,7 +297,19 @@ void doGrep(int argc, char* argv[]){
         // 设置参数 与 从标准输入流中读入
         else if(argv[i][0]=='-'){
             if(argv[i][1]=='\0'){ // 从标准输入读入字符                
-                strcpy(file[file_cnt].line[0], gTerm.strin);
+                // strcpy(file[file_cnt].line[0], gTerm.strin);
+                int ii=0, jj=0;
+                while(gTerm.strin[ii]!='\0'){
+                    if(gTerm.strin[ii]=='\n'){
+                        file[file_cnt].line[file[file_cnt].line_cnt][jj] = '\0';
+                        jj=0;
+                        file[file_cnt].line_cnt++;
+                    }
+                    else{
+                        file[file_cnt].line[file[file_cnt].line_cnt][jj++] = gTerm.strin[ii];
+                    }
+                    ii++;
+                }
                 file[file_cnt].line_cnt++;
                 strcpy(file[file_cnt++].filename, "(standard input)"); // 记录文件名称
                 continue;
