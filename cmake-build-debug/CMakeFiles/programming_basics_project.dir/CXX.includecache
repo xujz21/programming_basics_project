@@ -65,6 +65,20 @@ cstring
 -
 fstream
 D:/github/programming_basics_project/src/fstream
+iostream
+-
+fstream
+-
+string
+-
+string.h
+-
+algorithm
+-
+vector
+-
+sstream
+-
 
 D:/github/programming_basics_project/src/part4.h
 string
