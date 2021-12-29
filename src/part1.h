@@ -3,7 +3,7 @@ using namespace std;
 char rta[200],rtb[200];
 char wda[200],wdb[200];
 
-struct like{//�洢��ͬ���� 
+struct like{ 
 	int sa_a;
 	int sa_b;
 };
