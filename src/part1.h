@@ -1,7 +1,7 @@
 #include "global_var.h"
 using namespace std;
 char rta[200],rtb[200];
-char wda[200],wdb[200];//�洢���Ӻ��ļ�·�� 
+char wda[200],wdb[200];
 
 struct like{//�洢��ͬ���� 
 	int sa_a;
@@ -10,13 +10,13 @@ struct like{//�洢��ͬ����
 like same[300];
 int sai=1;
 
-int s_g[6]={0,0,0,0,0,0};//�����?6������
+int s_g[6]={0,0,0,0,0,0};
 
-string a[300],b[300];//�������ַ�������洢�Ƚ�����?
+string a[300],b[300];
 
-int I=0;//���I���ڵ�argv 
+int I=0; 
 
-void sc()//������ļ�����strout 
+void sc() 
 {
 	ifstream fout("answer.txt");
 	string ls,_tmp;
@@ -27,7 +27,7 @@ void sc()//������ļ�����strout
 	strcpy(gTerm.strout,_tmp.c_str());
 }
 
-void judge(int hang,int hx_b)//������֮����ͬ���ж� 
+void judge(int hang,int hx_b)
 {
 	for(int i=1;i<=hx_b;i++)
 	{
@@ -39,16 +39,16 @@ void judge(int hang,int hx_b)//������֮����ͬ���ж�
 				sai++;
 				return;
 			}
-		}//�����ж� 
+		} 
 		else
 		{
 		char as[100],bs[100];	
 		strcpy(as,a[hang].c_str());
-		strcpy(bs,b[i].c_str());//�������ַ�����洢�Ƚ��ַ�������?
+		strcpy(bs,b[i].c_str());
 		int alen=strlen(a[hang].c_str());
 		int blen=strlen(b[i].c_str()); 
 		
-		if(s_g[0]==1)//�ж��Ƿ� �����ո��ַ��Ĳ�ͬ
+		if(s_g[0]==1)
 		{
 			int iba=0,ibb=0;
 			for(iba;iba<=alen-1;iba++){
@@ -71,7 +71,7 @@ void judge(int hang,int hx_b)//������֮����ͬ���ж�
 					}
 				
 			}
-		}//�������ַ������е�����һ��Ŀո���һ��? 
+		}
 		if(s_g[4]==1)
 		{
 			int iwa=0,iwb=0;
@@ -100,8 +100,8 @@ void judge(int hang,int hx_b)//������֮����ͬ���ж�
 				}
 			}
 			
-		}//ȥ��ȫ���Ŀո��ַ� 
-		if(alen!=blen)continue;//�жϳ����Ƿ���ͬ 
+		}
+		if(alen!=blen)continue;
 		if(s_g[2]==1)
 		{
 			for(int ils=0;ils<=alen-1;ils++)
@@ -115,7 +115,7 @@ void judge(int hang,int hx_b)//������֮����ͬ���ж�
 				bs[ils]=bs[ils]+' ';
 			}
 			
-		}//�����еĴ�дת��Сд 
+		} 
 		
 		if(!(strcmp(as,bs))) 
 		{
@@ -123,7 +123,7 @@ void judge(int hang,int hx_b)//������֮����ͬ���ж�
 			same[sai].sa_b=i;
 		    sai++;
 			return;	
-		}//�����ж��Ƿ����? 
+		}
 		}
 	}
 }
@@ -131,14 +131,12 @@ void judge(int hang,int hx_b)//������֮����ͬ���ж�
 void change(int tg,ofstream &fcg,int ia)
 {
 	
-	if(s_g[1]==0)//�ж��Ƿ���Կհ���?
+	if(s_g[1]==0)
 	{ 
 		if((same[tg+ia].sa_a-same[tg].sa_a==1)&&(same[tg+ia].sa_b-same[tg].sa_b==1))
-		//���ڵ��������? 
-		{}//���·���
+		{}
 		else
 		if((same[tg+ia].sa_a-same[tg].sa_a==1)&&(same[tg+ia].sa_b-same[tg].sa_b>1))
-		//�������?
 		{
 			fcg<<same[tg].sa_a<<"a"<<same[tg].sa_b+1<<endl;
 			int ils=same[tg].sa_b+1;
@@ -149,7 +147,6 @@ void change(int tg,ofstream &fcg,int ia)
 		}
 		else
 		if((same[tg+ia].sa_a-same[tg].sa_a>1)&&(same[tg+ia].sa_b-same[tg].sa_b==1))
-		//����ɾ��
 		{
 			fcg<<same[tg].sa_a+1<<"d"<<same[tg].sa_b<<endl;
 			int ils=same[tg].sa_a+1;
@@ -159,7 +156,6 @@ void change(int tg,ofstream &fcg,int ia)
 			}
 		}
 		else
-		//���и��� 
 		{
 			fcg<<same[tg].sa_a+1<<"c"<<same[tg].sa_b+1<<endl;
 			int ilsa=same[tg].sa_a+1;
@@ -175,10 +171,10 @@ void change(int tg,ofstream &fcg,int ia)
 			}
 		}
 	}
-	else//���Կհ��� 
+	else
 	{
 		bool *xa=new bool[same[tg+ia].sa_a-same[tg].sa_a-1];
-		bool *xb=new bool[same[tg+ia].sa_b-same[tg].sa_b-1];//��¼���Ƿ�հ�?
+		bool *xb=new bool[same[tg+ia].sa_b-same[tg].sa_b-1];
 		for(int ils=0;ils<=same[tg+ia].sa_a-same[tg].sa_a-2;ils++)
 		{
 			if(a[same[tg].sa_a+ils+1]=="\0")xa[ils]=1;
@@ -202,14 +198,12 @@ void change(int tg,ofstream &fcg,int ia)
 			}
 		
 		if((same[tg+ia].sa_a-same[tg].sa_a==1)&&(same[tg+ia].sa_b-same[tg].sa_b==1))
-		//���ڵ��������? 
-		{}//���·���
+		{}
 		else
 		{
 		if(((same[tg+ia].sa_a-same[tg].sa_a==1)&&(same[tg+ia].sa_b-same[tg].sa_b>1))||xlsa==0)
-		//�������?
 		{
-			if(xlsb==1)//����ȫ���� 
+			if(xlsb==1) 
 			{ 
 			fcg<<same[tg].sa_a<<"a"<<same[tg].sa_b+1<<endl;
 			int ils=same[tg].sa_b+1;
@@ -224,7 +218,6 @@ void change(int tg,ofstream &fcg,int ia)
 		}
 		else
 		if(((same[tg+ia].sa_a-same[tg].sa_a>1)&&(same[tg+ia].sa_b-same[tg].sa_b==1))||xlsb==0)
-		//����ɾ��
 		{
 			if(xlsa==1)
 			{ 
@@ -239,8 +232,7 @@ void change(int tg,ofstream &fcg,int ia)
 			}
 			} 
 		}
-		else
-		//���и���  
+		else  
 		{
 			fcg<<same[tg].sa_a+1<<"c"<<same[tg].sa_b+1<<endl;
 			int ilsa=same[tg].sa_a;
@@ -290,9 +282,11 @@ void doDiff(int argc, char **argv)
     //strcat(strcat(strcat(strcat(wda,"/"),gTerm.wdir),"/"),argv[argc-2]);
 	//strcat(strcat(strcat(strcat(wdb,"\\"),gTerm.wdir),"\\"),argv[argc-1]);
     //strcat(strcat(strcat(strcat(wda,"/"),gTerm.wdir),"/"),argv[argc-1]);
+	
+	
 	char help1[]="--help";
 	char *help2=argv[1];
-	bool zs0=1;//���?--help�Ƿ�ƴд��ȷ 
+	bool zs0=1; 
 	if(argc==2)
 	{
 		if(strcmp(help2,help1)){
@@ -301,7 +295,7 @@ void doDiff(int argc, char **argv)
 		}
 	}
 	
-	bool zs1=1;//�жϹ����Ƿ��ִ��? 
+	bool zs1=1;
 	for(int i=1;i<=argc-3;i++)
 	{
 		char *pd=argv[i];
@@ -320,7 +314,7 @@ void doDiff(int argc, char **argv)
 		}
 	}
 	
-	bool zs2=1;//�ж��ļ��Ƿ����?
+	bool zs2=1;
 	if(argc!=2)
 	{
 		ifstream fina;
@@ -356,7 +350,7 @@ void doDiff(int argc, char **argv)
 		fout1.close();
 		sc();
 	return;
-	}//��helpָ��������ļ���?;�˳����� 
+	}
 	
 	for(int i=1;i<=argc-3;i++){
 		if(!strcmp(argv[i],"-b"))s_g[0]=1;
@@ -368,10 +362,10 @@ void doDiff(int argc, char **argv)
 		{s_g[5]=1;
 		I=i;
 		}
-	}//������Ĺ��ܽ��м��
+	}
 	
-	int hx_a=1;int hx_b=1;//�洢�ļ������� 
-	if((strcmp(argv[argc-2],"-"))&&(strcmp(argv[argc-1],"-")))//�ж��Ƿ��strin�ж�ȡ 
+	int hx_a=1;int hx_b=1; 
+	if((strcmp(argv[argc-2],"-"))&&(strcmp(argv[argc-1],"-")))
 	{
 	if(gTerm.root[0]=='/')
 	{
@@ -418,10 +412,10 @@ void doDiff(int argc, char **argv)
 		fin2.close();
 	}
 	
-	}//��ɴ��ļ��еĶ��? 
+	}
 	else 
 	{
-		if(!(strcmp(argv[argc-2],"-"))&&strcmp(argv[argc-1],"-")) //�ж��Ǹ���ȡstrin
+		if(!(strcmp(argv[argc-2],"-"))&&strcmp(argv[argc-1],"-"))
 		{                             
 			int i=0;
 			while(!(gTerm.strin[i]=='\0'))
@@ -487,12 +481,11 @@ void doDiff(int argc, char **argv)
 			j++; 
 			}
 		}
-	}//��ɴ�strin�еĶ�ȡ������Ĭ��ֻ��һ��strin) 
-	//ǰ�ڹ�����ɣ���ʽ����diff 
+	} 
 	if(a[1]=="\0"&&hx_a==1)hx_a--;
-	if(b[1]=="\0"&&hx_b==1)hx_b--;//������ֻ���ļ�Ϊ��ʱ�������� 
+	if(b[1]=="\0"&&hx_b==1)hx_b--;
 	
-	if(s_g[5]==1)//���I�Ĺ��ܣ�������) 
+	if(s_g[5]==1)
 	{
 		char *Ibj=argv[I];
 		char is[100];
@@ -531,12 +524,12 @@ void doDiff(int argc, char **argv)
 	for(int hang=1;hang<=hx_a;hang++)
 	{
 		judge(hang,hx_b);
-	}//��������ͬ���ж�
+	}
 	 
 	same[0].sa_a=0;
 	same[0].sa_b=0;
 	same[sai].sa_a=hx_a+1;
-	same[sai].sa_b=hx_b+1;//�����ļ�����β������ͬ
+	same[sai].sa_b=hx_b+1;
 	
 	if(s_g[3]==1)
 	{
@@ -558,15 +551,15 @@ void doDiff(int argc, char **argv)
 		sc();
 		return;
 		}
-	}//���q�Ĺ���
+	}
 	
 	ofstream fcg("answer.txt");
-	for(int tg=0;tg<=sai-1;tg++)//���е��� 
+	for(int tg=0;tg<=sai-1;tg++)
 	{
 		int ia=1;
 		while(same[tg].sa_b-same[tg+ia].sa_b>0){
 			ia++;
-		}//�ж��Ƿ񽻲� 
+		}
 		change(tg,fcg,ia);
 		tg+=ia-1;
 	}
