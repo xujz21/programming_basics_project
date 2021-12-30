@@ -13,6 +13,10 @@ fstream
 -
 iostream
 -
+cstring
+-
+cstdlib
+-
 
 D:/github/programming_basics_project/src/main.cpp
 iostream
@@ -45,16 +49,6 @@ D:/github/programming_basics_project/src/global_var.h
 D:/github/programming_basics_project/src/part2.h
 global_var.h
 D:/github/programming_basics_project/src/global_var.h
-iostream
--
-string.h
--
-fstream
--
-string
--
-cstdlib
--
 
 D:/github/programming_basics_project/src/part3.h
 global_var.h
@@ -87,6 +81,8 @@ cstdlib
 -
 cstring
 -
+cmath
+D:/github/programming_basics_project/src/cmath
 global_var.h
 D:/github/programming_basics_project/src/global_var.h
 
