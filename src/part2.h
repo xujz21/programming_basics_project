@@ -1,15 +1,8 @@
 #include "global_var.h"
-#include <iostream>
-#include <string.h>
-#include <fstream>
-#include <string>
-#include <cstdlib>
+
 using namespace std;
 
-#define red "\e[91;1m"
-#define green "\e[92;1m"
-#define blue "\e[94;1m"
-#define white "\e[0m"
+
 #define MAX_FILE_NUM 10         // 最大可读取文件数量
 #define MAX_CHAR_NUM 1000000    // 单个文件最大字符数
 #define MAX_LINE_NUM 1000       // 文件最大行数
@@ -32,7 +25,7 @@ struct printLinetag{
 struct File{ // 文件结构
     char filename[MAX_FILENAME];          // 文件名
     char filepath[200];                   // 文件的相对目录（相对wdir）
-    int line_cnt = 0;                     // 文件行数
+    int line_cnt = 0;                     // 文件行数，对应下面 MAX_LINE_NUM
     char line[MAX_LINE_NUM][MAX_CHAR_PER_LINE]; // 按行记录文件内容
     printLinetag tag[MAX_LINE_NUM];       // 行输出标记
 }file[MAX_FILE_NUM];
@@ -40,14 +33,14 @@ int file_cnt=0; // 当前已有文件数量
 
 struct GrepArgs{
     char re[MAX_RE];           // 待匹配正则表达式 （最大字符数100）
-    bool showLineCnt= false;   // 只显示符合样式的行数（仅可与 -H 叠加）
-    bool showFileName = false; // 行首显示文件名称（单文件默认false）
+    bool showLineCnt= false;   // 只显示符合样式的行数（仅可与 -H 叠加）     -c
+    bool showFileName = false; // 行首显示文件名称（单文件默认false）(-h) or (-H)
     bool setH = false;
-    bool ignoreCase = false;   // 忽略字符大小写
-    bool showLineNum = false;  // 行首显示该行编号
-    bool invert = false;       // 反向匹配
-    int sucline = 0;           // 连续显示之后的行数
-    int preline = 0;           // 连续显示之前的行数
+    bool ignoreCase = false;   // 忽略字符大小写     (-i)
+    bool showLineNum = false;  // 行首显示该行编号    (-n)
+    bool invert = false;       // 反向匹配          (-v)
+    int sucline = 0;           // 连续显示之后的行数  (-A)
+    int preline = 0;           // 连续显示之前的行数  (-B)
 };
 
 bool gotRE = false; // 是否已经读到正则表达式
@@ -93,14 +86,14 @@ void itos(int x){
     }
 }
 
-bool enhanceEqual(char a, char b, bool ignore){
+inline bool enhanceEqual(char a, char b, bool ignore){
     if(!ignore) return(a==b);
     if( a==b || ((a-'a'+'A')==b && a>='a' && a<='z' && b>='A' && b<='Z')
         || ((b-'a'+'A')==a && b>='a' && b<='z' && a>='A' && a<='Z')) return true;
     return false;
 }
 
-int match(char* re, char* a, bool ignore){ // 从a开头开始匹配
+inline int match(char* re, char* a, bool ignore){ // 从a开头开始匹配
     int s = strlen(re);
     int t = strlen(a);
     dp[0][0] = true;
@@ -147,7 +140,7 @@ void Analyse(GrepArgs args){ // 根据接收到的各种参数分析文件内容
     // 开始分析!
     for(int f=0 ; f<file_cnt ; f++){ // 对每个文件（第f个文件）
         int* matchLineArr = new int[file[f].line_cnt];
-        int lineidx=0, linecnt=0;
+        int lineidx=0, linecnt=0;//number of lines match with the string of regex
         for(int i=0 ; i<file[f].line_cnt ; i++){ // 确定行i是否包含匹配字符串，记录匹配区间
             file[f].tag[i].Seg = matchLine(args.re, file[f].line[i], args.ignoreCase);
             if(!args.invert){ // 正向匹配
@@ -301,6 +294,7 @@ void doGrep(int argc, char* argv[]){
                 int ii=0, jj=0;
                 while(gTerm.strin[ii]!='\0'){
                     if(gTerm.strin[ii]=='\n'){
+                        //Switch to a new line
                         file[file_cnt].line[file[file_cnt].line_cnt][jj] = '\0';
                         jj=0;
                         file[file_cnt].line_cnt++;

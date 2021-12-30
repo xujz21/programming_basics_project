@@ -1,6 +1,6 @@
-1c1
-<hello
----
->ab c
-3c3
----
+-b, --ignore-space-change,--ignore changes in the amount of white space
+-B, --ignore-blank-line, --ignore changes where lines are all blank
+-i, --ignore-case, --ignore case differences in file contents
+-q, --brief--report only when files differ
+-w, --ignore-all-space,--ignore all white space
+-I, --ignore-matching-lines=RE,--ignore changes where all lines match RE
