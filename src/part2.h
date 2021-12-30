@@ -1,15 +1,7 @@
 #include "global_var.h"
-#include <iostream>
-#include <string.h>
-#include <fstream>
-#include <string>
-#include <cstdlib>
 using namespace std;
 
-#define red "\e[91;1m"
-#define green "\e[92;1m"
-#define blue "\e[94;1m"
-#define white "\e[0m"
+
 #define MAX_FILE_NUM 10         // 最大可读取文件数量
 #define MAX_CHAR_NUM 1000000    // 单个文件最大字符数
 #define MAX_LINE_NUM 1000       // 文件最大行数
