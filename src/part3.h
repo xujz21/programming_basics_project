@@ -71,13 +71,6 @@ void doPwd(int argc, char **argv)
 
 }
 */
-#include <iostream>
-#include<fstream>
-#include<string>
-#include<string.h>
-#include<algorithm>
-#include<vector>
-#include<sstream>
 using namespace std;
 string tmpstr[999999];
 string name[999999];
@@ -98,8 +91,8 @@ void doCat(int argc, char * argv[])
 		name[i]=ss.str();	
 	}
 	for(int i=0;i<999999;i++)
-	while(name[i].length()<6)
-		name[i]=" "+name[i]; //构建序号字符串数组 
+        while(name[i].length()<6)
+            name[i]=" "+name[i]; //构建序号字符串数组
 	bool flag[4];
 	for(int i =0;i<4;i++) flag[i]=false;
 	for(int i =0;i<argc;i++)
@@ -554,312 +547,311 @@ void doCp(int argc, char * argv[])
 		gTerm.strout[hhh]='\0';
 	}
 	else
-	
 	{
-	if(argc>4)
-	{
-		cerr<<"wrong demands"<<endl;
-		return;
-	}
-	if(str[1]=="-n")
-	{		//处理文件名 
-		if(str[2]=="-"&&str[3]=="-") strcat(gTerm.strout,gTerm.strin);
-		if(str[2]=="-"&&str[3]!="-")
-		{
-			string f2;
-			string Root=gTerm.root;
-			string Wdir=gTerm.wdir;
-			if(str[3][0]=='/')
-			{
-				if(Root=="/") f2=str[3];
-				if(Root!="/") f2=Root+str[3];
-				
-			}
-			if(str[3][0]!='/')
-			{
-				if(Root=="/") 
-				{
-					if(Wdir=="/") f2="/"+str[3];
-					if(Wdir!="/") f2=Wdir+"/"+str[3];
-				}
-				if(Root!="/") 
-				{
-					if(Wdir=="/") f2=Root+"/"+str[3];
-					if(Wdir!="/") f2=Root+Wdir+"/"+str[3];
-				}
-			}
-			ofstream B(f2.c_str(),ios::app);
-			if(!B)
-			{
-				cerr<<"no such file"<<endl;
-				return;
-			}
-			B<<gTerm.strin;
-			B.close();
-		}
-		if(str[2]!="-"&&str[3]=="-")//对文件名的各种情况进行进一步讨论 
-		{
-			string f1;
-			string Root=gTerm.root;
-			string Wdir=gTerm.wdir;
-			if(str[2][0]=='/')
-			{
-				if(Root=="/") f1=str[2];
-				if(Root!="/") f1=Root+str[2];
-					
-			}
-			if(str[2][0]!='/')
-			{
-				if(Root=="/") 
-				{
-					if(Wdir=="/") f1="/"+str[2];
-					if(Wdir!="/") f1=Wdir+"/"+str[2];
-				}
-				if(Root!="/") 
-				{
-					if(Wdir=="/") f1=Root+"/"+str[2];
-					if(Wdir!="/") f1=Root+Wdir+"/"+str[2];
-				}
-			}
-			ifstream A(f1.c_str());
-			if(!A)
-			{
-				cerr<<"no such file"<<endl;
-				return;
-			}
-			int trans=0;int wuwuwu=0;
-			while(!A.eof())
-			{
-				getline(A,transp[trans]);trans++;
-			}
-			A.close();	
-			for(int q =0;q<trans;q++)
-			{
-				for(int len=0;len<transp[q].length();len++)
-				{
-					gTerm.strout[wuwuwu]=transp[q][len];wuwuwu++;
-				}
-				gTerm.strout[wuwuwu]='\n';wuwuwu++;
-			}
-			gTerm.strout[wuwuwu]='\0';
-			
-		}
-		if(str[2]!="-"&&str[3]!="-")
-		{
-		
-			string f1;string f2;
-			string Root=gTerm.root;
-			string Wdir=gTerm.wdir;
-			if(str[2][0]=='/')
-			{
-				if(Root=="/") f1=str[2];
-				if(Root!="/") f1=Root+str[2];
-					
-			}
-			if(str[3][0]=='/')
-			{
-				if(Root=="/") f2=str[3];
-				if(Root!="/") f2=Root+str[3];
-					
-			}
-			if(str[2][0]!='/')
-			{
-				if(Root=="/") 
-				{
-					if(Wdir=="/") f1="/"+str[2];
-					if(Wdir!="/") f1=Wdir+"/"+str[2];
-				}
-				if(Root!="/") 
-				{
-					if(Wdir=="/") f1=Root+"/"+str[2];
-					if(Wdir!="/") f1=Root+Wdir+"/"+str[2];
-				}
-			}
-			if(str[3][0]!='/')
-			{
-				if(Root=="/") 
-				{
-					if(Wdir=="/") f2="/"+str[3];
-					if(Wdir!="/") f2=Wdir+"/"+str[3];
-				}
-				if(Root!="/") 
-				{
-					if(Wdir=="/") f2=Root+"/"+str[3];
-					if(Wdir!="/") f2=Root+Wdir+"/"+str[3];
-				}
-			}
-			ifstream A(f1.c_str());
-			ofstream B(f2.c_str(),ios::app);
-			if(!A)
-			{
-				cerr<<"no such file"<<endl;
-				return;
-			}
-			if(!B)
-			{
-				cerr<<"no such file"<<endl;
-				return;
-			}
-			while(!A.eof())
-			{
-				string ch;
-				getline(A,ch);
-				if(A.eof()) B << ch;
-				else B<<ch<<endl;
-			}
-			
-			
-			A.close();
-			B.close();
-		}
-	}
-	if((string)argv[1]!="-n")
-	{
-		if(str[1]=="-"&&str[2]=="-") strcpy(gTerm.strout,gTerm.strin);
-		if(str[1]=="-"&&str[2]!="-")
-		{
-			string f2;
-			string Root=gTerm.root;
-			string Wdir=gTerm.wdir;
-			if(str[2][0]=='/')
-			{
-				if(Root=="/") f2=str[2];
-				if(Root!="/") f2=Root+str[2];
-				
-			}
-			if(str[2][0]!='/')
-			{
-				if(Root=="/") 
-				{
-					if(Wdir=="/") f2="/"+str[2];
-					if(Wdir!="/") f2=Wdir+"/"+str[2];
-				}
-				if(Root!="/") 
-				{
-					if(Wdir=="/") f2=Root+"/"+str[2];
-					if(Wdir!="/") f2=Root+Wdir+"/"+str[2];
-				}
-			}
-			ofstream B(f2.c_str());
-			if(!B)
-			{
-				cerr<<"no such file"<<endl;
-				return;
-			}
-			B<<gTerm.strin;
-			B.close();
-		}
-		if(str[1]!="-"&&str[2]=="-")
-		{
-			string f1;
-			string Root=gTerm.root;
-			string Wdir=gTerm.wdir;
-			if(str[1][0]=='/')
-			{
-				if(Root=="/") f1=str[1];
-				if(Root!="/") f1=Root+str[1];
-					
-			}
-			if(str[1][0]!='/')
-			{
-				if(Root=="/") 
-				{
-					if(Wdir=="/") f1="/"+str[1];
-					if(Wdir!="/") f1=Wdir+"/"+str[1];
-				}
-				if(Root!="/") 
-				{
-					if(Wdir=="/") f1=Root+"/"+str[1];
-					if(Wdir!="/") f1=Root+Wdir+"/"+str[1];
-				}
-			}
-			ifstream A(f1.c_str());
-			if(!A)
-			{
-				cerr<<"no such file"<<endl;
-				return;
-			}
-			int trans=0;int wuwuwu=0;
-			while(!A.eof())
-			{
-				getline(A,transp[trans]);trans++;
-			}
-			A.close();	
-			for(int q =0;q<trans;q++)
-			{
-				for(int len=0;len<transp[q].length();len++)
-				{
-					gTerm.strout[wuwuwu]=transp[q][len];wuwuwu++;
-				}
-				gTerm.strout[wuwuwu]='\n';wuwuwu++;
-			}
-			gTerm.strout[wuwuwu]='\0';
-		}
-		if(str[1]!="-"&&str[2]!="-")
-		{
-			string f1;string f2;
-			string Root=gTerm.root;
-			string Wdir=gTerm.wdir;
-			if(str[1][0]=='/')
-			{
-				if(Root=="/") f1=str[1];
-				if(Root!="/") f1=Root+str[1];
-					
-			}
-			if(str[2][0]=='/')
-			{
-				if(Root=="/") f2=str[2];
-				if(Root!="/") f2=Root+str[2];
-					
-			}
-			if(str[1][0]!='/')
-			{
-				if(Root=="/") 
-				{
-					if(Wdir=="/") f1="/"+str[1];
-					if(Wdir!="/") f1=Wdir+"/"+str[1];
-				}
-				if(Root!="/") 
-				{
-					if(Wdir=="/") f1=Root+"/"+str[1];
-					if(Wdir!="/") f1=Root+Wdir+"/"+str[1];
-				}
-			}
-			if(str[2][0]!='/')
-			{
-				if(Root=="/") 
-				{
-					if(Wdir=="/") f2="/"+str[2];
-					if(Wdir!="/") f2=Wdir+"/"+str[2];
-				}
-				if(Root!="/") 
-				{
-					if(Wdir=="/") f2=Root+"/"+str[2];
-					if(Wdir!="/") f2=Root+Wdir+"/"+str[2];
-				}
-			}
-			ifstream A(f1.c_str());
-			ofstream B(f2.c_str());
-			if(!A)
-			{
-				cerr<<"no such file"<<endl;
-				return;
-			}
-			if(!B)
-			{
-				cerr<<"no such file"<<endl;
-				return;
-			}
-			while(!A.eof())
-			{
-				string ch;
-				getline(A,ch);
-				if(A.eof()) B << ch;
-				else B<<ch<<endl;
-			}
-			A.close();B.close();
-		}
-	}
+        if(argc>4)
+        {
+            cerr<<"wrong demands"<<endl;
+            return;
+        }
+        if(str[1]=="-n")
+        {		//处理文件名
+            if(str[2]=="-"&&str[3]=="-") strcat(gTerm.strout,gTerm.strin);
+            if(str[2]=="-"&&str[3]!="-")
+            {
+                string f2;
+                string Root=gTerm.root;
+                string Wdir=gTerm.wdir;
+                if(str[3][0]=='/')
+                {
+                    if(Root=="/") f2=str[3];
+                    if(Root!="/") f2=Root+str[3];
+
+                }
+                if(str[3][0]!='/')
+                {
+                    if(Root=="/")
+                    {
+                        if(Wdir=="/") f2="/"+str[3];
+                        if(Wdir!="/") f2=Wdir+"/"+str[3];
+                    }
+                    if(Root!="/")
+                    {
+                        if(Wdir=="/") f2=Root+"/"+str[3];
+                        if(Wdir!="/") f2=Root+Wdir+"/"+str[3];
+                    }
+                }
+                ofstream B(f2.c_str(),ios::app);
+                if(!B)
+                {
+                    cerr<<"no such file"<<endl;
+                    return;
+                }
+                B<<gTerm.strin;
+                B.close();
+            }
+            if(str[2]!="-"&&str[3]=="-")//对文件名的各种情况进行进一步讨论
+            {
+                string f1;
+                string Root=gTerm.root;
+                string Wdir=gTerm.wdir;
+                if(str[2][0]=='/')
+                {
+                    if(Root=="/") f1=str[2];
+                    if(Root!="/") f1=Root+str[2];
+
+                }
+                if(str[2][0]!='/')
+                {
+                    if(Root=="/")
+                    {
+                        if(Wdir=="/") f1="/"+str[2];
+                        if(Wdir!="/") f1=Wdir+"/"+str[2];
+                    }
+                    if(Root!="/")
+                    {
+                        if(Wdir=="/") f1=Root+"/"+str[2];
+                        if(Wdir!="/") f1=Root+Wdir+"/"+str[2];
+                    }
+                }
+                ifstream A(f1.c_str());
+                if(!A)
+                {
+                    cerr<<"no such file"<<endl;
+                    return;
+                }
+                int trans=0;int wuwuwu=0;
+                while(!A.eof())
+                {
+                    getline(A,transp[trans]);trans++;
+                }
+                A.close();
+                for(int q =0;q<trans;q++)
+                {
+                    for(int len=0;len<transp[q].length();len++)
+                    {
+                        gTerm.strout[wuwuwu]=transp[q][len];wuwuwu++;
+                    }
+                    gTerm.strout[wuwuwu]='\n';wuwuwu++;
+                }
+                gTerm.strout[wuwuwu]='\0';
+
+            }
+            if(str[2]!="-"&&str[3]!="-")
+            {
+
+                string f1;string f2;
+                string Root=gTerm.root;
+                string Wdir=gTerm.wdir;
+                if(str[2][0]=='/')
+                {
+                    if(Root=="/") f1=str[2];
+                    if(Root!="/") f1=Root+str[2];
+
+                }
+                if(str[3][0]=='/')
+                {
+                    if(Root=="/") f2=str[3];
+                    if(Root!="/") f2=Root+str[3];
+
+                }
+                if(str[2][0]!='/')
+                {
+                    if(Root=="/")
+                    {
+                        if(Wdir=="/") f1="/"+str[2];
+                        if(Wdir!="/") f1=Wdir+"/"+str[2];
+                    }
+                    if(Root!="/")
+                    {
+                        if(Wdir=="/") f1=Root+"/"+str[2];
+                        if(Wdir!="/") f1=Root+Wdir+"/"+str[2];
+                    }
+                }
+                if(str[3][0]!='/')
+                {
+                    if(Root=="/")
+                    {
+                        if(Wdir=="/") f2="/"+str[3];
+                        if(Wdir!="/") f2=Wdir+"/"+str[3];
+                    }
+                    if(Root!="/")
+                    {
+                        if(Wdir=="/") f2=Root+"/"+str[3];
+                        if(Wdir!="/") f2=Root+Wdir+"/"+str[3];
+                    }
+                }
+                ifstream A(f1.c_str());
+                ofstream B(f2.c_str(),ios::app);
+                if(!A)
+                {
+                    cerr<<"no such file"<<endl;
+                    return;
+                }
+                if(!B)
+                {
+                    cerr<<"no such file"<<endl;
+                    return;
+                }
+                while(!A.eof())
+                {
+                    string ch;
+                    getline(A,ch);
+                    if(A.eof()) B << ch;
+                    else B<<ch<<endl;
+                }
+
+
+                A.close();
+                B.close();
+            }
+        }
+        if((string)argv[1]!="-n")
+        {
+            if(str[1]=="-"&&str[2]=="-") strcpy(gTerm.strout,gTerm.strin);
+            if(str[1]=="-"&&str[2]!="-")
+            {
+                string f2;
+                string Root=gTerm.root;
+                string Wdir=gTerm.wdir;
+                if(str[2][0]=='/')
+                {
+                    if(Root=="/") f2=str[2];
+                    if(Root!="/") f2=Root+str[2];
+
+                }
+                if(str[2][0]!='/')
+                {
+                    if(Root=="/")
+                    {
+                        if(Wdir=="/") f2="/"+str[2];
+                        if(Wdir!="/") f2=Wdir+"/"+str[2];
+                    }
+                    if(Root!="/")
+                    {
+                        if(Wdir=="/") f2=Root+"/"+str[2];
+                        if(Wdir!="/") f2=Root+Wdir+"/"+str[2];
+                    }
+                }
+                ofstream B(f2.c_str());
+                if(!B)
+                {
+                    cerr<<"no such file"<<endl;
+                    return;
+                }
+                B<<gTerm.strin;
+                B.close();
+            }
+            if(str[1]!="-"&&str[2]=="-")
+            {
+                string f1;
+                string Root=gTerm.root;
+                string Wdir=gTerm.wdir;
+                if(str[1][0]=='/')
+                {
+                    if(Root=="/") f1=str[1];
+                    if(Root!="/") f1=Root+str[1];
+
+                }
+                if(str[1][0]!='/')
+                {
+                    if(Root=="/")
+                    {
+                        if(Wdir=="/") f1="/"+str[1];
+                        if(Wdir!="/") f1=Wdir+"/"+str[1];
+                    }
+                    if(Root!="/")
+                    {
+                        if(Wdir=="/") f1=Root+"/"+str[1];
+                        if(Wdir!="/") f1=Root+Wdir+"/"+str[1];
+                    }
+                }
+                ifstream A(f1.c_str());
+                if(!A)
+                {
+                    cerr<<"no such file"<<endl;
+                    return;
+                }
+                int trans=0;int wuwuwu=0;
+                while(!A.eof())
+                {
+                    getline(A,transp[trans]);trans++;
+                }
+                A.close();
+                for(int q =0;q<trans;q++)
+                {
+                    for(int len=0;len<transp[q].length();len++)
+                    {
+                        gTerm.strout[wuwuwu]=transp[q][len];wuwuwu++;
+                    }
+                    gTerm.strout[wuwuwu]='\n';wuwuwu++;
+                }
+                gTerm.strout[wuwuwu]='\0';
+            }
+            if(str[1]!="-"&&str[2]!="-")
+            {
+                string f1;string f2;
+                string Root=gTerm.root;
+                string Wdir=gTerm.wdir;
+                if(str[1][0]=='/')
+                {
+                    if(Root=="/") f1=str[1];
+                    if(Root!="/") f1=Root+str[1];
+
+                }
+                if(str[2][0]=='/')
+                {
+                    if(Root=="/") f2=str[2];
+                    if(Root!="/") f2=Root+str[2];
+
+                }
+                if(str[1][0]!='/')
+                {
+                    if(Root=="/")
+                    {
+                        if(Wdir=="/") f1="/"+str[1];
+                        if(Wdir!="/") f1=Wdir+"/"+str[1];
+                    }
+                    if(Root!="/")
+                    {
+                        if(Wdir=="/") f1=Root+"/"+str[1];
+                        if(Wdir!="/") f1=Root+Wdir+"/"+str[1];
+                    }
+                }
+                if(str[2][0]!='/')
+                {
+                    if(Root=="/")
+                    {
+                        if(Wdir=="/") f2="/"+str[2];
+                        if(Wdir!="/") f2=Wdir+"/"+str[2];
+                    }
+                    if(Root!="/")
+                    {
+                        if(Wdir=="/") f2=Root+"/"+str[2];
+                        if(Wdir!="/") f2=Root+Wdir+"/"+str[2];
+                    }
+                }
+                ifstream A(f1.c_str());
+                ofstream B(f2.c_str());
+                if(!A)
+                {
+                    cerr<<"no such file"<<endl;
+                    return;
+                }
+                if(!B)
+                {
+                    cerr<<"no such file"<<endl;
+                    return;
+                }
+                while(!A.eof())
+                {
+                    string ch;
+                    getline(A,ch);
+                    if(A.eof()) B << ch;
+                    else B<<ch<<endl;
+                }
+                A.close();B.close();
+            }
+        }
 	}
 }
 

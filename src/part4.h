@@ -56,7 +56,7 @@ echo (TinyShell) 1.10\n"
  */
 inline int handle_args(char *arg,bool ipt)
 {
-    int n= (int)strlen(arg);
+    size_t n= strlen(arg);
     int i=0;
 
     if(ipt)
@@ -227,6 +227,7 @@ void doEcho(int argc, char **argv)
     {
         normal_output:
         int i=1;
+        //      -n              -e or -E
         bool _newline=true,_parse_bkslash=false;
         memset(gTerm.strout,0,sizeof(gTerm.strout));
         //handle flags first

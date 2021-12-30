@@ -14,7 +14,9 @@
 #include <cstdio>
 #include <vector>
 #include <map>
-
+#include <fstream>
+#include <sstream>
+#include <algorithm>
 struct Terminal
 {
     char user[MAXLINE];
@@ -35,7 +37,7 @@ inline void cinStrout(const char* src){
     strcat(gTerm.strout, src);
 }
 inline void cinStrout(char c){
-    int len = strlen(gTerm.strout);
+    size_t len = strlen(gTerm.strout);
     gTerm.strout[len] = c;
     gTerm.strout[len+1] = '\0';
 }

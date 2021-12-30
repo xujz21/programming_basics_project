@@ -327,8 +327,8 @@ void doDiff(int argc, char **argv)
 		if(gTerm.root[0]=='\\') fina.open(rta);
 		else fina.open(wda);
 		if(!fina){
-		cerr<<"diff: "<<argv[argc-2]<<": "<<"No such file or dictionary"<<endl;
-		zs2=0;
+		    cerr<<"diff: "<<argv[argc-2]<<": "<<"No such file or dictionary"<<endl;
+		    zs2=0;
 		}
 		fina.close();
 		
@@ -336,8 +336,8 @@ void doDiff(int argc, char **argv)
 		if(gTerm.root[0]=='\\') finb.open(rtb);
 		else fina.open(wdb);
 		if(!finb){
-		cerr<<"diff: "<<argv[argc-1]<<": "<<"No such file or dictionary"<<endl;
-		zs2=0;
+		    cerr<<"diff: "<<argv[argc-1]<<": "<<"No such file or dictionary"<<endl;
+		    zs2=0;
 		}
 		finb.close();
 		
