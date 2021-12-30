@@ -283,6 +283,12 @@ void doDiff(int argc, char **argv)
 	//strcat(strcat(strcat(strcat(wdb,"\\"),gTerm.wdir),"\\"),argv[argc-1]);
     //strcat(strcat(strcat(strcat(wda,"/"),gTerm.wdir),"/"),argv[argc-1]);
 	
+	if(argc==1)
+	{
+		cerr<<"diff: missing operand after 'diff'"<<endl;
+		cerr<<"Try 'diff --help' for more information"<<endl;
+		return;
+	}
 	
 	char help1[]="--help";
 	char *help2=argv[1];
@@ -291,6 +297,7 @@ void doDiff(int argc, char **argv)
 	{
 		if(strcmp(help2,help1)){
 			cerr<<"diff: "<<help2<<": "<<"No such command"<<endl;
+			cerr<<"Try 'diff --help' for more information"<<endl;
 			zs0=0;
 		}
 	}
@@ -304,12 +311,14 @@ void doDiff(int argc, char **argv)
 		if((strcmp(pd,"-b")&&strcmp(pd,"-B")&&strcmp(pd,"-i")&&strcmp(pd,"-q")&&strcmp(pd,"-w")))
 		{
 			cerr<<"diff: "<<pd<<": "<<"No such command"<<endl;
+			cerr<<"Try 'diff --help' for more information"<<endl;
 			zs1=0;
 		}
 		}
 		else
 		if(pd[0]!='-'){
 			cerr<<"diff: "<<pd<<": "<<"No such command"<<endl;
+			cerr<<"Try 'diff --help' for more information"<<endl;
 			zs1=0;
 		}
 	}
@@ -318,19 +327,21 @@ void doDiff(int argc, char **argv)
 	if(argc!=2)
 	{
 		ifstream fina;
-		if(gTerm.root[0]=='\\') fina.open(rta);
+		if(gTerm.root[0]=='/') fina.open(rta);
 		else fina.open(wda);
 		if(!fina){
 		cerr<<"diff: "<<argv[argc-2]<<": "<<"No such file or dictionary"<<endl;
+		cerr<<"Try 'diff --help' for more information"<<endl;
 		zs2=0;
 		}
 		fina.close();
 		
 		ifstream finb;
-		if(gTerm.root[0]=='\\') finb.open(rtb);
+		if(gTerm.root[0]=='/') finb.open(rtb);
 		else fina.open(wdb);
 		if(!finb){
 		cerr<<"diff: "<<argv[argc-1]<<": "<<"No such file or dictionary"<<endl;
+		cerr<<"Try 'diff --help' for more information"<<endl;
 		zs2=0;
 		}
 		finb.close();
@@ -341,6 +352,8 @@ void doDiff(int argc, char **argv)
 	
 	if(!(strcmp(help2,help1))){
 		ofstream fout1("answer.txt");
+		fout1<<"Usage: diff [OPTION]... FILES"<<endl;
+		fout1<<"Compare FILES line by line."<<endl;
 		fout1<<"-b, --ignore-space-change,--ignore changes in the amount of white space"<<endl;
 		fout1<<"-B, --ignore-blank-line, --ignore changes where lines are all blank"<<endl;
 		fout1<<"-i, --ignore-case, --ignore case differences in file contents"<<endl;
