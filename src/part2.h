@@ -5,8 +5,6 @@ using namespace std;
 
 #define MAX_FILE_NUM 10         // 最大可读取文件数量
 #define MAX_CHAR_NUM 1000000    // 单个文件最大字符数
-#define MAX_LINE_NUM 1000       // 文件最大行数
-#define MAX_CHAR_PER_LINE 1000  // 单行最大字符数
 #define MAX_RE 100              // 正则表达式最大长度
 #define MAX_FILENAME 100        // 文件名最大长度
 
