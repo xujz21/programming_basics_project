@@ -20,6 +20,7 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include <stack>
 struct Terminal
 {
     char user[MAXLINE];
@@ -58,16 +59,52 @@ inline void cinStrout(char c){
 inline char* Physical_Path(char* path)
 {
     char *return_value=new char[MAXLINE];
-    strcat(return_value,gTerm.root);
     if(path[0]!='/')
     {
         strcat(return_value,gTerm.wdir);
         strcat(return_value,"/");
     }
     strcat(return_value,path);
-    return return_value;
+    std::stack<std::string> st;
+    std::string dir;
+
+    size_t len_A = strlen(return_value);
+    char* res=new char[len_A];
+    res[0]='/';
+    for (int i = 0; i < len_A; i++) {
+        dir.clear();
+        while (return_value[i] == '/')i++;
+        while (i < len_A && return_value[i] != '/') {
+            dir.push_back(return_value[i]);
+            i++;
+        }
+        if (dir == "..") {
+            if (!st.empty())
+                st.pop();
+        }
+        else if (dir == ".")continue;
+        else if (dir.length() != 0)
+            st.push(dir);
+    }
+
+    std::stack<std::string> st1;
+    while (!st.empty()) {
+        st1.push(st.top());
+        st.pop();
+    }
+    // the st1 will contain the actual res.
+    while (!st1.empty()) {
+        strcat(res,st1.top().c_str());
+        if (st1.size() != 1)
+            strcat(res,"/");
+        st1.pop();
+    }
+    char *tmp1=new char[len_A];
+    strcpy(tmp1,gTerm.strin);
+    strcat(tmp1,res);
+    return tmp1;
 }
-inline char _modified_getc(bool mode,FILE* fd=NULL,int* pos=NULL)
+inline char modified_getc(bool mode,FILE* fd=nullptr,int* pos=nullptr)
 {
     if(mode)return gTerm.strin[(*pos)++];
     else    return fgetc(fd);
@@ -84,12 +121,12 @@ _Document Handle_File_Input(char *abs_path,bool end_with_lf=true)
     char c=40;
     while(c)
     {
-        c=_modified_getc(strcmp(abs_path,"-")==0,doc,itpos);
+        c=modified_getc(strcmp(abs_path,"-")==0,doc,itpos);
         int LINE_IDX=0;
         while(c!='\n'&&c)
         {
             Input_Document.content[LINE_CNT][LINE_IDX++]=c;
-            c= _modified_getc(strcmp(abs_path,"-")==0,doc,itpos);
+            c= modified_getc(strcmp(abs_path,"-")==0,doc,itpos);
         }
         if(c=='\n'&&end_with_lf)
         {
