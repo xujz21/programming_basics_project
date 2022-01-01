@@ -174,7 +174,7 @@ void Analyse(GrepArgs args){ // 根据接收到的各种参数分析文件内容
 
         if(args.showLineCnt){ // 只输出匹配行数
             if(args.showFileName){ // 是否输出文件名
-                cinStrout(green); cinStrout(file[f].filename); 
+                cinStrout(purple); cinStrout(file[f].filename); 
                 cinStrout(blue); 
                 cinStrout(':'); 
                 cinStrout(white);
@@ -188,7 +188,7 @@ void Analyse(GrepArgs args){ // 根据接收到的各种参数分析文件内容
         for(int i=0 ; i<file[f].line_cnt ; i++){ // 输出行i
             if(file[f].tag[i].Print){
                 if(args.showFileName){ // 输出文件名
-                    cinStrout(green); cinStrout(file[f].filename); cinStrout(blue);
+                    cinStrout(purple); cinStrout(file[f].filename); cinStrout(blue);
                     if((file[f].tag[i].Seg.start_id!=-1 && !args.invert) || (file[f].tag[i].Seg.start_id==-1 && args.invert))
                          cinStrout(':');
                     else cinStrout('-'); 
@@ -223,6 +223,7 @@ void Analyse(GrepArgs args){ // 根据接收到的各种参数分析文件内容
                 }
             }
         }  
+        if(f < file_cnt-1) cinStrout("---\n");
     }
 }
 
