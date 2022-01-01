@@ -3,6 +3,7 @@
 #define red "\033[1m\033[31m"
 #define green "\033[1m\e[92;1m"
 #define blue "\033[1m\e[94;1m"
+#define purple "\033[35m"
 #define white "\e[0m"
 #define MAXLINE 10000
 #define MAXFILE 10000000
