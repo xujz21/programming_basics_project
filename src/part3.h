@@ -557,7 +557,7 @@ void doCp(int argc, char * argv[])
         {		//处理文件名
             if(str[2]=="-"&&str[3]=="-") strcat(gTerm.strout,gTerm.strin);
             if(str[2]=="-"&&str[3]!="-")
-            {
+            {;/*
                 string f2;
                 string Root=gTerm.root;
                 string Wdir=gTerm.wdir;
@@ -587,7 +587,7 @@ void doCp(int argc, char * argv[])
                     return;
                 }
                 B<<gTerm.strin;
-                B.close();
+                B.close();*/
             }
             if(str[2]!="-"&&str[3]=="-")//对文件名的各种情况进行进一步讨论
             {
@@ -638,7 +638,7 @@ void doCp(int argc, char * argv[])
             }
             if(str[2]!="-"&&str[3]!="-")
             {
-
+              /*
                 string f1;string f2;
                 string Root=gTerm.root;
                 string Wdir=gTerm.wdir;
@@ -702,7 +702,7 @@ void doCp(int argc, char * argv[])
 
 
                 A.close();
-                B.close();
+                B.close();*/
             }
         }
         if((string)argv[1]!="-n")
@@ -1048,8 +1048,7 @@ void doCd(int argc, char * argv[])
 		int H=0;int hhh=0;
 		while(!A.eof())
 		{
-			getline(A,help[H]);H++;
-		}
+			getline(A,help[H]);H++;}
 		A.close();	
 		for(int q =0;q<H;q++)
 		{
@@ -1061,11 +1060,11 @@ void doCd(int argc, char * argv[])
 		}
 		gTerm.strout[hhh]='\0';
 	}
-	else//不需要显示帮助则将相对路径与绝对路径统一处理 
+	else//涓嶉渶瑕佹樉绀哄府鍔╁垯灏嗙浉瀵硅矾寰勪笌缁濆璺緞缁熶竴澶勭悊 
 	{
 		int len=strlen(argv[1]),cur=strlen(gTerm.wdir);
 		if(argv[1][0]=='/') cur=1;
-		for(int l=argv[1][0]=='/',r;l<len;l=r+2){//靠bool值判断起点 
+		for(int l=argv[1][0]=='/',r;l<len;l=r+2){//闈燽ool鍊煎垽鏂捣鐐?
 			for(r=l;r+1<len&&argv[1][r+1]!='/';r++);
 			if(argv[1][l]=='.'){
 				if(l==r)continue;
@@ -1076,9 +1075,9 @@ void doCd(int argc, char * argv[])
 						if(cur!=1)gTerm.wdir[--cur]=0;
 					}
 				}
-				else{;
-					// alarming
-					
+				else{
+					if(cur!=1)gTerm.wdir[cur++]='/';
+				copy(argv[1]+l,argv[1]+r+1,gTerm.wdir+cur),cur+=r-l+1;
 					
 				}
 			}
