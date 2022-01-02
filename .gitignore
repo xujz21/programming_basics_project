@@ -30,3 +30,7 @@ cmake-build-debug/CMakeFiles/programming_basics_project.dir/CXX.includecache
 src/answer.txt
 src/test_doc.txt
 .idea/discord.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/programming_basics_project.iml
+.idea/vcs.xml
