@@ -1,23 +1,50 @@
 Tiny
-C:/Users
+C:/Users/
 Admin
-echo tinyshell "for   linux"
-echo 'single
- quoted statement'
+#--------to begin, copy 'examples' folder to C:/users--
+# or the root directory you entered
+#-------------------echo samples-------------------
+echo -ne 'singly
+ quoted \033[35m\"purple colored\"  \33[0mstatement'
 echo \n backslash escaped
 echo hello world
-echo -n hello world|echo c++
-echo "tiny shell  \
+echo  hello world|echo c++
+echo -ne -test "tiny    shelll\b  \
 version 1.0
 2021.11.09"
-echo --help|tee echo_help.txt
-cd
-echo a; echo b
+echo --help|tee echo_help.txt;
+echo a; echo -n b
 echo hello|
 echo c++
-pwd
 eco
-diff
-cat
+#----------visiting a child directory----------------
+pwd
+#-displaying the text of files for diff/grep later--
+cd examples
+#----------FILES Manipulation------------------------
+cp -n CONFIG_LEGACY.json ../echo_help.txt
+cat ../echo_help.txt
+cat -n -E CONFIG_LEGACY.json CONFIG_CURR.json
+cat -b -s Server.py
+cat -b- n CONFIG_LEGACY.json
+cp  CONFIG_LEGACY.json ../echo_help.txt
+cat ../echo_help.txt
+#-----------illustrations of diff-------------------
+echo \"IPv4_location\"|diff -IIPv4 - CONFIG_CURR.json
+diff    CONFIG_LEGACY.json CONFIG_CURR.json
+diff -b CONFIG_LEGACY.json CONFIG_CURR.json
+diff -i CONFIG_LEGACY.json CONFIG_CURR.json
+diff -w CONFIG_LEGACY.json CONFIG_CURR.json
+diff -B CONFIG_LEGACY.json CONFIG_CURR.json
+diff -IKitchen CONFIG_LEGACY.json CONFIG_CURR.json
+diff -b -i -w -B -IKitchen CONFIG_LEGACY.json CONFIG_CURR.json
+#-----------string searching and matching------------
+grep *client* Server.py
+grep -n -i sock Server.py Client.py
+grep -H -A3 -B2 sock Server.py Client.py
+grep -h .hread Server.py
+grep -c socket Server.py Client.py
+#------------end------------------------------------
+echo wish you a happy new year! stay safe|tee msg.txt
 exit|exit
 exit;exit

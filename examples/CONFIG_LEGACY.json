@@ -1,0 +1,28 @@
+{
+  "KitchenState":true,
+  "KitchenL1":false,
+  "KitchenL2":false,
+  "KitchenL3":false,
+  "KitchenCanReset":true,
+  "TriangleState":true,
+
+  "FootballState":true,
+
+  "CardsState":true,
+  "CardSingle":true,
+  "CardMulti": false,
+  "IPv4_location":"192.168.1.64",
+  "Port":46000,
+  "KitchenTimeLimit":   180,    
+  "KitchenResetPwd":"000000",
+  "Nonspawningx":0,
+  "Nonspawningy":0,
+  "Spawningx":5,
+  "Spawningy":5,
+  "FootballSTimeout": 5,
+  "FootballFTimeout":10,
+  "Triangle_Lives":3,
+  "CardTimePerQuestion":10,
+  "Triangle_SpawnTime":15,
+  "CardNumbers":10
+}
