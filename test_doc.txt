@@ -5,7 +5,7 @@ Admin
 # or the root directory you entered
 #-------------------echo samples-------------------
 echo -ne 'singly
- quoted \033[35m\"purple colored\"  \33[0mstatement'
+ quoted \033[35m\"purple colored\"  \033[0mstatement'
 echo \n backslash escaped
 echo hello world
 echo  hello world|echo c++
