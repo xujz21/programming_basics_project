@@ -58,6 +58,8 @@ inline void cinStrout(char c){
  */
 inline char* Physical_Path(char* path)
 {
+    if(strcmp(path,"-")==0)
+        return (char*)"-";
     char *return_value=new char[MAXLINE];
     if(path[0]!='/')
     {
@@ -110,13 +112,20 @@ inline char modified_getc(bool mode,FILE* fd=nullptr,int* pos=nullptr)
     else    return fgetc(fd);
 
 }
-_Document Handle_File_Input(char *abs_path,bool end_with_lf=true)
+_Document Handle_File_Input(char *path,bool end_with_lf=true,char *funcname=NULL)
 {
     _Document Input_Document{};
     int *itpos=new int(0);
     FILE* doc;
-    if(strcmp(abs_path,"-") != 0)
+    char* abs_path= Physical_Path(path);
+    if(strcmp(abs_path,"-") != 0){
         doc= fopen(abs_path,"r");
+        if(doc==nullptr)
+        {
+            std::cerr<<(std::string)funcname<<": "<<(std::string)path<<": No such file or directory"<<std::endl;
+            return Input_Document;
+        }
+    }
     int LINE_CNT=0;
     char c=40;
     while(c)
